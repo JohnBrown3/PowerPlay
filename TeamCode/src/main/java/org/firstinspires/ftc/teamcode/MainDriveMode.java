@@ -38,11 +38,11 @@ public class MainDriveMode extends LinearOpMode
     if (opModeIsActive()) 
     {
       // Initializes modes and encoders for spool motor
-      SpoolMotor.setTargetPosition(0);
-      SpoolMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-      SpoolMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-      SpoolMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-      SpoolMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //SpoolMotor.setTargetPosition(0);
+      //SpoolMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      //SpoolMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      //SpoolMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      //SpoolMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
       
       // Reverses directions for backwards motors
       RearRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -53,8 +53,8 @@ public class MainDriveMode extends LinearOpMode
       RearRightWheel.setPower(0);
       FrontLeftWheel.setPower(0);
       FrontRightWheel.setPower(0);
-      SpoolMotor.setTargetPosition(0);
-      ClawServo.setPosition(0);
+      //SpoolMotor.setTargetPosition(0);
+      //ClawServo.setPosition(0);
       
       // Runloop
       while (opModeIsActive()) 
@@ -65,12 +65,12 @@ public class MainDriveMode extends LinearOpMode
 
         /* Movement */
         // Driver Input
-        float leftStickY = -gamepad1.left_stick_y;
-        float leftStickX = gamepad1.left_stick_x;
-        float rightStickX = gamepad1.right_stick_x;
+        float leftStickY = gamepad1.left_stick_y;
+        float leftStickX = -gamepad1.left_stick_x;
+        float rightStickX = -gamepad1.right_stick_x;
 
         // Direction/Power Calculation
-        float denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(rx), 1);
+        float denominator = Math.max(Math.abs(leftStickY) + Math.abs(leftStickX) + Math.abs(rightStickX), 1);
         float rearLeftPower = (leftStickY - leftStickX + rightStickX) / denominator;
         float rearRightPower = (leftStickY + leftStickX - rightStickX) / denominator;
         float frontLeftPower = (leftStickY + leftStickX + rightStickX) / denominator;
