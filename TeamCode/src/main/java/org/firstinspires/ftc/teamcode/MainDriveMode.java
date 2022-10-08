@@ -28,6 +28,10 @@ public class MainDriveMode extends LinearOpMode
     //SpoolMotor = hardwareMap.dcMotor.get("ArmServo");
     //ClawServo = hardwareMap.servo.get("ClawServo");
 
+    // Reverse right motors
+    RearRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+    FrontRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+
     waitForStart();
     
     // When the Play Button is pressed
@@ -55,11 +59,11 @@ public class MainDriveMode extends LinearOpMode
       // Runloop
       while (opModeIsActive()) 
       {
-        // Notes:
+        /* Notes */
         // To set Gamepad as 1 or 2, hold 'Start' and press 'A' or 'B'
         // Pressing 'mode' on gamepad switches the left joystick and the d-pad controls
 
-        // Movement //
+        /* Movement */
         // Driver Input
         float leftStickY = -gamepad1.left_stick_y;
         float leftStickX = gamepad1.left_stick_x;
@@ -78,7 +82,7 @@ public class MainDriveMode extends LinearOpMode
         FrontLeftWheel.setPower(frontLeftPower);
         FrontRightWheel.setPower(frontRightPower);
 
-        // OLD CODE BELOW //
+        /* OLD CODE BELOW */
         /*
         
         //Holding left trigger speeds up robot
@@ -189,7 +193,8 @@ public class MainDriveMode extends LinearOpMode
         
         */
         
-        // Telemetry displayed on Driver Station
+        /* Telemetry */
+        // Displayed on the Driver Station's right panel
         telemetry.addData("RearLeftWheel", RearLeftWheel.getPower());
         telemetry.addData("RearRightWheel", RearRightWheel.getPower());
         telemetry.addData("FrontLeftWheel", FrontLeftWheel.getPower());
