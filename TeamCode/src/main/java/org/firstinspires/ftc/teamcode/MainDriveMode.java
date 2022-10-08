@@ -12,8 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class MainDriveMode extends LinearOpMode 
 {
   // Declares hardware variables
-  private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel;
-  //private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
+  private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
   //private Servo ClawServo;
 
   // When the Start Buttons is pressed
@@ -25,7 +24,7 @@ public class MainDriveMode extends LinearOpMode
     RearRightWheel = hardwareMap.dcMotor.get("RearRightWheel");
     FrontLeftWheel = hardwareMap.dcMotor.get("FrontLeftWheel");
     FrontRightWheel = hardwareMap.dcMotor.get("FrontRightWheel");
-    //SpoolMotor = hardwareMap.dcMotor.get("ArmServo");
+    SpoolMotor = hardwareMap.dcMotor.get("ArmServo");
     //ClawServo = hardwareMap.servo.get("ClawServo");
 
     // Reverse right motors
@@ -38,11 +37,11 @@ public class MainDriveMode extends LinearOpMode
     if (opModeIsActive()) 
     {
       // Initializes modes and encoders for spool motor
-      //SpoolMotor.setTargetPosition(0);
-      //SpoolMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-      //SpoolMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-      //SpoolMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-      //SpoolMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      SpoolMotor.setTargetPosition(0);
+      SpoolMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+      SpoolMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+      SpoolMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+      SpoolMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
       
       // Reverses directions for backwards motors
       RearRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -53,8 +52,8 @@ public class MainDriveMode extends LinearOpMode
       RearRightWheel.setPower(0);
       FrontLeftWheel.setPower(0);
       FrontRightWheel.setPower(0);
-      //SpoolMotor.setPower(0);
-      //SpoolMotor.setTargetPosition(0);
+      SpoolMotor.setPower(0);
+      SpoolMotor.setTargetPosition(0);
       //ClawServo.setPosition(0);
       
       // Runloop
@@ -83,12 +82,9 @@ public class MainDriveMode extends LinearOpMode
         FrontLeftWheel.setPower(frontLeftPower);
         FrontRightWheel.setPower(frontRightPower);
 
-        /* Not Implemented */
-        /*
-
-        // Slide Control //
+        /* Slide Control */
         // Manual slide control
-        SpoolMotor.setPower(0);
+        SpoolMotor.setPower(1);
         SpoolMotor.setTargetPosition(ArmMotor.getTargetPosition() - (int)(gamepad2.right_stick_y * 6));
 
         // Preset Positions
@@ -98,16 +94,21 @@ public class MainDriveMode extends LinearOpMode
         }
         else if (gamepad2.a)
         {
-            SpoolMotor.setTargetPosition(100);
+            SpoolMotor.setTargetPosition(550);
         }
         else if (gamepad2.b)
         {
-            SpoolMotor.setTargetPosition(200);
+            SpoolMotor.setTargetPosition(1100);
         }
         else if (gamepad2.y)
         {
-            SpoolMotor.setTargetPosition(300);
+            SpoolMotor.setTargetPosition(1600);
         }
+
+        /* Not Implemented */
+        /*
+
+        
 
         // Servo Control //
         if (gamepad2.right_trigger != 0)
@@ -126,7 +127,7 @@ public class MainDriveMode extends LinearOpMode
         telemetry.addData("RearRightWheel", RearRightWheel.getPower());
         telemetry.addData("FrontLeftWheel", FrontLeftWheel.getPower());
         telemetry.addData("FrontRightWheel", FrontRightWheel.getPower());
-        //telemetry.addData("SpoolMotorPosition", SpoolMotor.getCurrentPosition());
+        telemetry.addData("SpoolMotorPosition", SpoolMotor.getCurrentPosition());
         //telemetry.addData("ClawServo", ClawServo.getPosition());
         telemetry.update();
       }
