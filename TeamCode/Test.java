@@ -13,7 +13,7 @@ public class MainDriveMode extends LinearOpMode
 {
   // Declares hardware variables
   private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
-  //private Servo ClawServo;
+  private Servo ClawServo;
 
   // When the Start Buttons is pressed
   @Override
@@ -85,27 +85,27 @@ public class MainDriveMode extends LinearOpMode
         /* Slide Control */
         // Manual slide control
         SpoolMotor.setPower(1);
-        SpoolMotor.setTargetPosition(ArmMotor.getTargetPosition() - (int)(gamepad2.right_stick_y * 6));
+        SpoolMotor.setTargetPosition(ArmMotor.getTargetPosition() - (int)(gamepad1.right_stick_y * 5));
 
         // Preset Positions
-        if (gamepad2.x)
+        if (gamepad1.x)
         {
             SpoolMotor.setTargetPosition(0);
         }
-        else if (gamepad2.a)
+        else if (gamepad1.a)
         {
             SpoolMotor.setTargetPosition(550);
         }
-        else if (gamepad2.b)
+        else if (gamepad1.b)
         {
             SpoolMotor.setTargetPosition(1100);
         }
-        else if (gamepad2.y)
+        else if (gamepad1.y)
         {
             SpoolMotor.setTargetPosition(1600);
         }        
         
-        if (gamepad2.right_trigger != 0)
+        if (gamepad1.right_trigger != 0)
         {
             ClawServo.setPosition(0.50);
         }
