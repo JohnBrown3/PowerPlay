@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 // Creates OpMode for Driver Hub
-@TeleOp(name = "MainDriveMode", group = "Linear Opmode")
-public class MainDriveMode extends LinearOpMode
+@TeleOp(name = "SoloDriveMode", group = "Linear Opmode")
+public class SoloDriveMode extends LinearOpMode
 {
   // Declares hardware variables
   private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
@@ -28,9 +28,13 @@ public class MainDriveMode extends LinearOpMode
     ClawServo = hardwareMap.servo.get("ClawServo");
 
     // Reverse motors/servos
-    RearRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+    RearLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+    FrontLeftWheel.setDirection(DcMotorSimple.Direction.REVERSE);
+    FrontRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
     SpoolMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     ClawServo.setDirection(Servo.Direction.REVERSE);
+
+    float slideDirection = 0;
 
     waitForStart();
 
@@ -51,7 +55,7 @@ public class MainDriveMode extends LinearOpMode
       FrontRightWheel.setPower(0);
       SpoolMotor.setPower(0);
       SpoolMotor.setTargetPosition(0);
-      //ClawServo.setPosition(0);
+      ClawServo.setPosition(0.25);
 
       // Runloop
       while (opModeIsActive())
@@ -62,9 +66,9 @@ public class MainDriveMode extends LinearOpMode
 
         /* Movement */
         // Driver Input
-        float leftStickY = gamepad1.left_stick_y;
-        float leftStickX = -gamepad1.left_stick_x;
-        float rightStickX = -gamepad1.right_stick_x;
+        float leftStickY = -gamepad1.left_stick_y;
+        float leftStickX = gamepad1.left_stick_x;
+        float rightStickX = gamepad1.right_stick_x;
 
         // Direction/Power Calculation
         float denominator = Math.max(Math.abs(leftStickY) + Math.abs(leftStickX) + Math.abs(rightStickX), 1);
@@ -81,29 +85,42 @@ public class MainDriveMode extends LinearOpMode
 
         /* Slide Control */
         // Manual slide control
+        if (gamepad1.dpad_up)
+        {
+          slideDirection = 1;
+        }
+        else if (gamepad1.dpad_down)
+        {
+          slideDirection = -1;
+        }
+        else
+        {
+          slideDirection = 0;
+        }
+
         SpoolMotor.setPower(1);
-        SpoolMotor.setTargetPosition(SpoolMotor.getTargetPosition() - (int)(gamepad2.right_stick_y * 10));
+        SpoolMotor.setTargetPosition(SpoolMotor.getTargetPosition() + (int)(slideDirection * 10));
 
         // Preset Positions
-        if (gamepad2.x)
+        if (gamepad1.x)
         {
           SpoolMotor.setTargetPosition(0);
         }
-        else if (gamepad2.a)
+        else if (gamepad1.a)
         {
           SpoolMotor.setTargetPosition(2000);
         }
-        else if (gamepad2.b)
+        else if (gamepad1.b)
         {
           SpoolMotor.setTargetPosition(4000);
         }
-        else if (gamepad2.y)
+        else if (gamepad1.y)
         {
           SpoolMotor.setTargetPosition(8000);
         }
 
         // Servo Control //
-        if (gamepad2.right_trigger != 0)
+        if (gamepad1.right_trigger != 0)
         {
           ClawServo.setPosition(0);
         }

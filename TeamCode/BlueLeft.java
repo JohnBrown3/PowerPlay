@@ -22,7 +22,7 @@ public class BlueLeft extends LinearOpMode
 
     //Hardware
     private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
-    //private Servo ClawServo;
+    private Servo ClawServo;
     private BNO055IMU imu;
 
     //Numbers
@@ -61,7 +61,7 @@ public class BlueLeft extends LinearOpMode
         FrontLeftWheel = hardwareMap.dcMotor.get("FrontLeftWheel");
         FrontRightWheel = hardwareMap.dcMotor.get("FrontRightWheel");
         SpoolMotor = hardwareMap.dcMotor.get("ArmServo");
-        //ClawServo = hardwareMap.servo.get("ClawServo");
+        ClawServo = hardwareMap.servo.get("ClawServo");
 
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
         imuParameters.mode = BNO055IMU.SensorMode.IMU;
