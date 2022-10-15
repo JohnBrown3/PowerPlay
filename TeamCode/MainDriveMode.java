@@ -105,11 +105,6 @@ public class MainDriveMode extends LinearOpMode
             SpoolMotor.setTargetPosition(1600);
         }
 
-        /* Not Implemented */
-        /*
-
-        
-
         // Servo Control //
         if (gamepad2.right_trigger != 0)
         {
@@ -119,7 +114,6 @@ public class MainDriveMode extends LinearOpMode
         {
             ClawServo.setPosition(0);
         }
-        */
         
         /* Telemetry */
         // Displayed on the Driver Station's right panel
