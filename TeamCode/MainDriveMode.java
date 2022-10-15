@@ -13,7 +13,7 @@ public class MainDriveMode extends LinearOpMode
 {
   // Declares hardware variables
   private DcMotor RearLeftWheel, RearRightWheel, FrontLeftWheel, FrontRightWheel, SpoolMotor;
-  //private Servo ClawServo;
+  private Servo ClawServo;
 
   // When the Start Buttons is pressed
   @Override
@@ -25,7 +25,7 @@ public class MainDriveMode extends LinearOpMode
     FrontLeftWheel = hardwareMap.dcMotor.get("FrontLeftWheel");
     FrontRightWheel = hardwareMap.dcMotor.get("FrontRightWheel");
     SpoolMotor = hardwareMap.dcMotor.get("ArmServo");
-    //ClawServo = hardwareMap.servo.get("ClawServo");
+    ClawServo = hardwareMap.servo.get("ClawServo");
 
     // Reverse right motors
     RearRightWheel.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -122,7 +122,7 @@ public class MainDriveMode extends LinearOpMode
         telemetry.addData("FrontLeftWheel", FrontLeftWheel.getPower());
         telemetry.addData("FrontRightWheel", FrontRightWheel.getPower());
         telemetry.addData("SpoolMotorPosition", SpoolMotor.getCurrentPosition());
-        //telemetry.addData("ClawServo", ClawServo.getPosition());
+        telemetry.addData("ClawServo", ClawServo.getPosition());
         telemetry.update();
       }
     }
