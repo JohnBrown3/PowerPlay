@@ -84,8 +84,18 @@ public class MainDriveMode extends LinearOpMode
 
         /* Slide Control */
         // Manual slide control
-        SpoolMotor.setPower(1);
-        SpoolMotor.setTargetPosition(ArmMotor.getTargetPosition() - (int)(gamepad1.right_stick_y * 5));
+        //SpoolMotor.setPower(1);
+        //SpoolMotor.setTargetPosition(ArmMotor.getTargetPosition() - (int)(gamepad1.right_stick_y * 5));
+        if (gamepad1.dpadup)
+        {
+            SpoolMotor.setTargetPosition(100)
+        }
+
+        if (gamepad1.dpaddown)
+        {
+            SpoolMotor.setTargetPosition(100)
+        }
+
 
         // Preset Positions
         if (gamepad1.x)
